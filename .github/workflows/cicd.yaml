@@ -39,7 +39,7 @@ jobs:
 
   Continuous-Deployment:
     needs: Continuous-Integration
-    runs-on: self-hosted1self-hosted1
+    runs-on: self-hosted
 
     steps:
       - name: Configure AWS credentials
