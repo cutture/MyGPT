@@ -23,26 +23,26 @@ Path("data").mkdir(exist_ok=True)
 
 
 # Update default and allowed models to use Gemini 2.5
-DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
-
-ALLOWED_MODELS = {
-    "gemini-2.5-flash",
-    "gemini-2.5-pro",
-    "gemini-2.5-flash-lite", # Included the lite version if needed
-    "gemini-1.5-flash",      # Kept for fallback compatibility 
-    "gemini-1.5-pro"
-}
-
-
-# DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6-terra")  # balanced default, ≈ gemini-2.5-flash
+# DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 # ALLOWED_MODELS = {
-#     "gpt-6-astra",    # top flagship for hardest reasoning/coding
-#     "gpt-5.6-sol",    # GPT-5.6 flagship, ≈ gemini-2.5-pro
-#     "gpt-5.6-terra",  # balanced, ≈ gemini-2.5-flash
-#     "gpt-5.6-luna",   # fastest/cheapest, ≈ gemini-2.5-flash-lite
-#     "gpt-5.5",        # previous-gen fallback, ≈ gemini-1.5-*
+#     "gemini-2.5-flash",
+#     "gemini-2.5-pro",
+#     "gemini-2.5-flash-lite", # Included the lite version if needed
+#     "gemini-1.5-flash",      # Kept for fallback compatibility 
+#     "gemini-1.5-pro"
 # }
+
+
+DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6-terra")  # balanced default, ≈ gemini-2.5-flash
+
+ALLOWED_MODELS = {
+    "gpt-6-astra",    # top flagship for hardest reasoning/coding
+    "gpt-5.6-sol",    # GPT-5.6 flagship, ≈ gemini-2.5-pro
+    "gpt-5.6-terra",  # balanced, ≈ gemini-2.5-flash
+    "gpt-5.6-luna",   # fastest/cheapest, ≈ gemini-2.5-flash-lite
+    "gpt-5.5",        # previous-gen fallback, ≈ gemini-1.5-*
+}
 
 
 SYSTEM_PROMPT = """
