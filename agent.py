@@ -90,25 +90,29 @@ def normalize_model_name(model_name: str | None) -> str:
 
 def build_agent(model_name: str):
     """
-    Build one LangGraph agent for a selected Gemini model.
+    Build one LangGraph agent for a selected OpenAI model.
     """
 
     selected_model = normalize_model_name(model_name)
 
-    # Initialize ChatGoogleGenerativeAI
-    llm = ChatGoogleGenerativeAI(
+    # # Initialize ChatGoogleGenerativeAI
+    # llm = ChatGoogleGenerativeAI(
+    #     model=selected_model,
+    #     temperature=0.3,
+    #     streaming=True
+    # )
+
+    # Initialize ChatOpenAI
+    # GPT-5.x / GPT-6 models only accept temperature=1. Set it explicitly,
+    # otherwise langchain-openai sends its own default of 0.7 and the API rejects it.
+    llm = ChatOpenAI(
         model=selected_model,
-        temperature=0.3,
+        temperature=1,
+        api_key=OPENAI_API_KEY,
+        # These models reject tool calling on /v1/chat/completions; use /v1/responses.
+        use_responses_api=True,
         streaming=True
     )
-    
-    # # Initialize ChatOpenAI
-    # llm = ChatOpenAI(
-    # model=selected_model,
-    # temperature=0.3,
-    # api_key=OPENAI_API_KEY,
-    # streaming=True
-    # )
 
     llm_with_tools = llm.bind_tools(tools)
 
