@@ -76,6 +76,7 @@ jobs:
             --name agentic-chatbot \
             --restart always \
             -p 8080:8080 \
+            -e LLM_PROVIDER="${{ vars.LLM_PROVIDER || 'openai' }}" \
             -e GOOGLE_API_KEY="${{ secrets.GOOGLE_API_KEY }}" \
             -e GOOGLE_MODEL="${{ secrets.GOOGLE_MODEL }}" \
             -e OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}" \

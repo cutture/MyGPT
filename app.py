@@ -23,7 +23,7 @@ from langchain_core.messages import (
     ToolMessage
 )
 
-from agent import get_agent
+from agent import get_agent, get_model_options
 from database import (
     init_db,
     save_chat_message,
@@ -51,7 +51,7 @@ async def home(request: Request):
     return templates.TemplateResponse(
         request=request,
         name="index.html",
-        context={}
+        context=get_model_options()
     )
 
 
@@ -225,7 +225,7 @@ async def chat_stream(request: Request):
 
     user_message = data.get("message", "")
     thread_id = data.get("thread_id", "default")
-    selected_model = data.get("model", "gpt-5.6-terra")
+    selected_model = data.get("model")
 
     if not user_message.strip():
         return JSONResponse(

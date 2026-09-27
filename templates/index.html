@@ -516,11 +516,10 @@
             ></textarea>
 
             <select id="modelSelect" class="model-select" title="Select model">
-                <option value="gpt-5.6-terra">gpt-5.6-terra</option>
-                <option value="gpt-5.6-sol">gpt-5.6-sol</option>
-                <option value="gpt-5.6-luna">gpt-5.6-luna</option>
-                <option value="gpt-6-astra">gpt-6-astra</option>
-                <option value="gpt-5.5">gpt-5.5</option>
+                {# Models come from PROVIDERS in agent.py for the active LLM_PROVIDER #}
+                {% for model in models %}
+                <option value="{{ model }}" {% if model == default_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
             </select>
 
             <button class="mic-btn" id="micBtn" onclick="toggleDictation()" title="Dictate">
@@ -570,7 +569,7 @@
 
     const savedModel = localStorage.getItem("selected_model");
 
-    // Ignore stale saved models (e.g. old Gemini names) that are no longer in the dropdown.
+    // Ignore stale saved models (e.g. from the other provider) that are no longer in the dropdown.
     if (savedModel && modelSelect &&
         Array.from(modelSelect.options).some(opt => opt.value === savedModel)) {
         modelSelect.value = savedModel;
@@ -968,7 +967,7 @@
             stopDictation();
         }
 
-        const selectedModel = modelSelect ? modelSelect.value : "gpt-5.6-terra";
+        const selectedModel = modelSelect ? modelSelect.value : "";
 
         addMessage("user", message);
 
